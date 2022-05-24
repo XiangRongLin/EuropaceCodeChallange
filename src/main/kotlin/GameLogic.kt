@@ -5,6 +5,11 @@ class GameLogic {
         if (frames.size != 10) {
             throw IllegalStateException("A game must have 10 frames")
         }
+        for (frame in frames.dropLast(1)) {
+            if (frame.thirdRoll != null) {
+                throw IllegalStateException("The third roll may only be set in the last frame")
+            }
+        }
 
         var sum = 0
 
@@ -16,9 +21,11 @@ class GameLogic {
         frame9.thirdRoll?.let {
             sum += it
         }
-        if (frame9.isStrike()) {
-            sum += frame9.secondRoll!!
-        }
+// Knowing the exception below, this probably does also not apply
+//        if (frame9.isStrike()) {
+//            sum += frame9.secondRoll!!
+//        }
+
 // The example does not add this value, but according to the rules it should be added
 //        else if (frame9.isSpare()) {
 //            sum += frame9.thirdRoll!!
