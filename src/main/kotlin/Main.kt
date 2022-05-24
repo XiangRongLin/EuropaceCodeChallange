@@ -1,7 +1,12 @@
 fun main(args: Array<String>) {
-    println("Hello World!")
-
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+    val frames = args
+        .map { it.split(",") }
+        .map { Frame(
+            it[0].toInt(),
+            it.getOrNull(1)?.toInt(),
+            it.getOrNull(2)?.toInt()
+        ) }
+    val game = Game(frames)
+    val points = GameLogic().calculatePoints(game)
+    println(points)
 }
